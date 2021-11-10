@@ -9,7 +9,7 @@
     </div>
     <div v-else>
       <div>
-ㄴ      </div>
+      </div>
       <div>
         {{ weather.cod }}
       </div>
@@ -25,21 +25,19 @@ export default {
       weather: {},
       code: '',
       temp: 0,
-      // 날씨 표현 시 사용될 icon 배열
      
     }
   },
   mounted() {
-    // API 요청 URL (지역 Seoul 고정)
     let fetchUrl = `${this.url_base}weather?q=Seoul&units=metric&APPID=${this.api_key}`
     fetch(fetchUrl)
       .then(response => {
         return response.json()
       })
       .then(result => {
-        this.weather = result // 날씨 정보
-        this.temp = result.main.temp // 기온
-        this.code = result.weather[0].id.toString() // 날씨 코드
+        this.weather = result 
+        this.temp = result.main.temp 
+        this.code = result.weather[0].id.toString() 
       })
   },
 }
