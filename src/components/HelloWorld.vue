@@ -1,58 +1,53 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+ <div id="clock">
+    <p>날짜</p> {{ date }}
+    <br />
+    <p>시간</p> {{ time }}
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+data() {
+  return{
+  week: ['SUN', "MON", "TUE", "WED", "THU", "FRI", "SAT"],
+  time: '',
+  date: ''
+}
+},
+mounted() {
+  setInterval(this.updateTime, 1000)
+},
+methods: {
+   updateTime() {
+      var cd = new Date()
+      this.date =
+        this.zeroPadding(cd.getFullYear(), 4) +
+        '/' +
+        this.zeroPadding(cd.getMonth() + 1, 2) +
+        '/' +
+        this.zeroPadding(cd.getDate(), 2) +
+        ' ' +
+        this.week[cd.getDay()]
+      this.time =
+        this.zeroPadding(cd.getHours(), 2) +
+        ':' +
+        this.zeroPadding(cd.getMinutes(), 2) +
+        ':' +
+        this.zeroPadding(cd.getSeconds(), 2)
+    },
+    zeroPadding(num, digit){
+      var zero = ''
+      for(let i = 0; i < digit; i++){
+        zero += '0'
+      }
+      return (zero + num).slice(-digit)
+    }
+},
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>
